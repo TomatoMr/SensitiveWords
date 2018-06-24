@@ -35,7 +35,7 @@ func GetMap() *SensitiveMap {
 /*
 初始化敏感词词典结构体
  */
-func InitSensitiveMap() *SensitiveMap {
+func initSensitiveMap() *SensitiveMap {
 	return &SensitiveMap{
 		sensitiveNode:make(map[string]interface{}),
 		isEnd:false,
@@ -60,7 +60,7 @@ func readDictionary(path string) []string {
 初始化敏感词词典，根据DFA算法构建trie
  */
 func InitDictionary(s *SensitiveMap, dictionaryPath string) *SensitiveMap{
-	s = InitSensitiveMap()
+	s = initSensitiveMap()
 	dictionary := readDictionary(dictionaryPath)
 	for _, words := range dictionary {
 		sMapTmp := s
