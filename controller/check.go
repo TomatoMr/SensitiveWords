@@ -14,8 +14,8 @@ import (
 )
 
 func Check(context *gin.Context)  {
-	content := context.Query("content")
-	sensitiveMap := tool.GetMap()
+	content        := context.Query("content")
+	sensitiveMap   := tool.GetMap()
 	target, result := sensitiveMap.CheckSensitive(content)
 	context.JSON(http.StatusOK, gin.H{
 		"target" : target,
@@ -24,14 +24,14 @@ func Check(context *gin.Context)  {
 }
 
 func All(context *gin.Context)  {
-	content := context.Query("content")
+	content      := context.Query("content")
 	sensitiveMap := tool.GetMap()
-	target := sensitiveMap.FindAllSensitive(content)
+	target       := sensitiveMap.FindAllSensitive(content)
 
 	type Target struct {
 		Word string `json:"word"`
-		I []int `json:"i"`
-		L int `json:"l"`
+		WordIndexes []int `json:"word_indexes"`
+		WordLength int `json:"word_length"`
 	}
 
 	targetArray := []Target{}
@@ -39,8 +39,8 @@ func All(context *gin.Context)  {
 	for key, value := range target{
 		t := Target{
 			Word: key,
-			I:value.Indexes,
-			L:value.Len,
+			WordIndexes:value.Indexes,
+			WordLength:value.Len,
 		}
 		targetArray = append(targetArray, t)
 	}

@@ -24,8 +24,8 @@ var s *SensitiveMap
 
 func GetMap() *SensitiveMap {
 	if s == nil {
-		currentPath, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-		configure := config.GetConfig()
+		currentPath, _  := filepath.Abs(filepath.Dir(os.Args[0]))
+		configure       := config.GetConfig()
 		dictionaryPath  := currentPath + configure.DictionaryPath
 		s = InitDictionary(s, dictionaryPath)
 	}
@@ -51,7 +51,7 @@ func readDictionary(path string) []string {
 		panic(err)
 	}
 	defer file.Close()
-	str, err := ioutil.ReadAll(file)
+	str, err   := ioutil.ReadAll(file)
 	dictionary := strings.Fields(string(str))
 	return dictionary
 }
@@ -61,26 +61,26 @@ func readDictionary(path string) []string {
  */
 func InitDictionary(s *SensitiveMap, dictionaryPath string) *SensitiveMap{
 	s = initSensitiveMap()
-	dictionary := readDictionary(dictionaryPath)
-	for _, words := range dictionary {
-		sMapTmp := s
-		w := []rune(words)
+	dictionary      := readDictionary(dictionaryPath)
+	for _, words    := range dictionary {
+		sMapTmp     := s
+		w           := []rune(words)
 		wordsLength := len(w)
 		for i:=0; i<wordsLength; i++ {
-			t := string(w[i])
+			t     := string(w[i])
 			isEnd := false
 			//如果是敏感词的最后一个字，则确定状态
-			if i==(wordsLength-1) {
+			if i == (wordsLength-1) {
 				isEnd = true
 			}
 			func (tx string){
-				if _, ok:=sMapTmp.sensitiveNode[tx]; !ok {//如果该字在该层级索引中找不到，则创建新的层级
+				if _, ok     := sMapTmp.sensitiveNode[tx]; !ok {//如果该字在该层级索引中找不到，则创建新的层级
 					sMapTemp := new(SensitiveMap)
-					sMapTemp.sensitiveNode = make(map[string]interface{})
-					sMapTemp.isEnd = isEnd
+					sMapTemp.sensitiveNode    = make(map[string]interface{})
+					sMapTemp.isEnd            = isEnd
 					sMapTmp.sensitiveNode[tx] = sMapTemp
 				}
-				sMapTmp = sMapTmp.sensitiveNode[tx].(*SensitiveMap)//进入下一层级
+				sMapTmp       = sMapTmp.sensitiveNode[tx].(*SensitiveMap)//进入下一层级
 				sMapTmp.isEnd = isEnd
 			}(t)
 		}
@@ -93,17 +93,17 @@ func InitDictionary(s *SensitiveMap, dictionaryPath string) *SensitiveMap{
 返回值：敏感词，是否含有敏感词
  */
 func (s *SensitiveMap)CheckSensitive(text string) (string, bool) {
-	content := []rune(text)
+	content       := []rune(text)
 	contentLength := len(content)
-	result := false
-	ta :=  ""
+	result        := false
+	ta            :=  ""
 	for index := range content{
 		sMapTmp := s
-		target := ""
-		in := index
+		target  := ""
+		in      := index
 		for {
-			wo := string(content[in])
-			target += wo
+			wo       := string(content[in])
+			target   += wo
 			if _, ok := sMapTmp.sensitiveNode[wo]; ok {
 				if sMapTmp.sensitiveNode[wo].(*SensitiveMap).isEnd {
 					result = true
@@ -135,16 +135,16 @@ type Target struct {
 	Len int
 }
 func (s *SensitiveMap)FindAllSensitive(text string) map[string]*Target {
-	content := []rune(text)
+	content       := []rune(text)
 	contentLength := len(content)
-	result := false
+	result        := false
 
-	ta :=  make(map[string]*Target)
-	for index := range content{
+	ta          :=  make(map[string]*Target)
+	for index   := range content{
 		sMapTmp := s
-		target := ""
-		in := index
-		result = false
+		target  := ""
+		in      := index
+		result   = false
 		for {
 			wo := string(content[in])
 			target += wo
@@ -163,7 +163,7 @@ func (s *SensitiveMap)FindAllSensitive(text string) map[string]*Target {
 			}
 		}
 		if result {
-			if _, targetInTa := ta[target]; targetInTa{
+			if _, targetInTa      := ta[target]; targetInTa{
 				ta[target].Indexes = append(ta[target].Indexes, index)
 			}else {
 				ta[target] = &Target{

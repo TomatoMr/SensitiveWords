@@ -24,8 +24,8 @@ var appPath string
 var pidPath string
 func init()  {
 	appPath, _ = filepath.Abs(filepath.Dir(os.Args[0]))
-	configure = config.GetConfig()
-	pidPath = appPath + configure.PidFilePath
+	configure  = config.GetConfig()
+	pidPath    = appPath + configure.PidFilePath
 	gin.SetMode(gin.ReleaseMode)
 }
 
@@ -74,7 +74,7 @@ func Start()  {
 
 func Stop()  {
 	pid, _ := ioutil.ReadFile(pidPath)
-	cmd := exec.Command("kill","-9", string(pid))
+	cmd    := exec.Command("kill","-9", string(pid))
 	cmd.Start()
 	ioutil.WriteFile(pidPath, nil, 0666)//清除pid
 	fmt.Println("bye~")
@@ -83,8 +83,8 @@ func Stop()  {
 func Restart()  {
 	fmt.Println("restarting...")
 	pid, _ := ioutil.ReadFile(pidPath)
-	stop := exec.Command("kill","-9", string(pid))
+	stop   := exec.Command("kill","-9", string(pid))
 	stop.Start()
-	start := exec.Command("./SensitiveWords", "-start", "-d")
+	start  := exec.Command("./SensitiveWords", "-start", "-d")
 	start.Start()
 }

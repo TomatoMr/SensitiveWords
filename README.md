@@ -38,8 +38,8 @@ SensitiveWords是基于DFA算法编写的敏感词汇检测插件,可独立部�
 >作用:返回目标文本中,第一个敏感词汇  
 返回值:target:[  
         word //敏感词  
-        i //相同的敏感词在原文本中的索引的数组  
-        l //该敏感词的长度  
+        word_indexes //相同的敏感词在原文本中的索引的数组  
+        word_length //该敏感词的长度  
              ],  
 >>
 
@@ -75,5 +75,5 @@ A:修改config.toml->修改DictionaryPath->./SensitiveWords -restart
 >1.http://localhost:9981/check?content="脏话"  
 {"result":true,"target":"脏话"}  
 2.http://localhost:9981/all?content="脏话"  
-{"target":[{"word":"脏话","i":[0],"l":2}]}  
+{"target":[{"word":"脏话","word_indexes":[0],"word_length":2}]}  
 >>

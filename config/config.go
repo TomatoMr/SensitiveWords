@@ -16,8 +16,8 @@ import (
 
 type Config struct {
 	DictionaryPath string
-	Port string
-	PidFilePath string
+	Port           string
+	PidFilePath    string
 }
 
 var once = sync.Once{}
