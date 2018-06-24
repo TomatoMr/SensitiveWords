@@ -1,0 +1,3 @@
+DictionaryPath = "/dictionary/dictionary.txt"
+Port = "9981"
+PidFilePath = "/log/pid.lock"
