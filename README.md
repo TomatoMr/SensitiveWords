@@ -1,8 +1,9 @@
 # SensitiveWords
 
 ## Get
-github地址: https://github.com/TomatoMr/SensitiveWords.git
-
+github地址: https://github.com/TomatoMr/SensitiveWords.git  
+或者  
+go get gopkg.in/TomatoMr/SensitiveWords.v1
 ## Introduction
 SensitiveWords是基于DFA算法编写的敏感词汇检测插件,可独立部署,也可以集成到项目中.
 
