@@ -70,3 +70,10 @@ PidFilePath //pid文件位置,用于命令行结束程序和重启程序,根目�
 >Q:重载词典?  
 A:修改config.toml->修改DictionaryPath->./SensitiveWords -restart
 >>
+
+### 示例
+>1.http://localhost:9981/check?content="脏话"  
+{"result":true,"target":"脏话"}  
+2.http://localhost:9981/all?content="脏话"  
+{"target":[{"word":"脏话","i":[0],"l":2}]}  
+>>
