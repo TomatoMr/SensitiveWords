@@ -42,7 +42,7 @@ SensitiveWords是基于DFA算法编写的敏感词汇检测插件,可独立部�
         word //敏感词  
         word_indexes //相同的敏感词在原文本中的索引的数组  
         word_length //该敏感词的长度  
-             ],  
+             ]  
 >>
 
 ### 插件方法
@@ -56,7 +56,7 @@ SensitiveWords是基于DFA算法编写的敏感词汇检测插件,可独立部�
 >接受检测文本,并返回是否含有敏感词和第一个敏感词
 >>
 4. FindAllSensitive(text string)
->接受检测文本,并返回所有敏感词`
+>接受检测文本,并返回所有敏感词
 >>
 5. GetConfig()
 >返回配置实例
